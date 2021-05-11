@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 fun AppScaffold() {
     val viewModel: MainViewModel = viewModel()
     val navController = rememberNavController()
-    var scaffoldState = rememberScaffoldState()
+    val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val currentScreen by viewModel.currentScreen.observeAsState()
 
@@ -67,9 +68,15 @@ fun AppScaffold() {
                 scope.launch {
                     scaffoldState.drawerState.close()
                 }
-                navController.navigate(scree)
+                navController.navigate(Screens.DrawerScreens.Home.route) {
+                    popUpTo = navController.graph.startDestination
+                    launchSingleTop = true
+                }
             }
-        }
-    )
+        },
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen
+    ) { innerPadding ->
+        NavigationHost(navController = navController, viewModel = viewModel)
+    }
 }
 

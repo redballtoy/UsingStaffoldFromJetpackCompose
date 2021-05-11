@@ -5,26 +5,21 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.redballtoy.usingstaffoldfromjetpackcompose.Screens.DrawerScreens.Home
-import com.example.redballtoy.usingstaffoldfromjetpackcompose.Screens.HomeScreen
-import com.example.redballtoy.usingstaffoldfromjetpackcompose.Screens.HomeScreen.*
 
 @Composable
 fun NavigationHost(
     navController: NavController,
     viewModel: MainViewModel
-){
+) {
     NavHost(
         navController = navController as NavHostController,
-        startDestination = Home.route
-    ){
-        composable(Home.route){ Home(viewModel = viewModel) }
-        composable(Favorite.route){ HomeScreen.Favorite(viewModel = viewModel) }
-        composable(Home.route){ Home(viewModel = viewModel) }
-        composable(Home.route){ Home(viewModel = viewModel) }
-        composable(Home.route){ Home(viewModel = viewModel) }
-        composable(Home.route){ Home(viewModel = viewModel) }
-
-
+        startDestination = Screens.DrawerScreens.Home.route
+    ) {
+        composable(Screens.DrawerScreens.Home.route) { Home(viewModel = viewModel) }
+        composable(Screens.DrawerScreens.Account.route) { Account(viewModel = viewModel) }
+        composable(Screens.DrawerScreens.Help.route) { Help(viewModel = viewModel) }
+        composable(Screens.HomeScreen.Favorite.route) { Favorite(viewModel = viewModel) }
+        composable(Screens.HomeScreen.Notification.route) { Notification(viewModel = viewModel) }
+        composable(Screens.HomeScreen.Network.route) { Network(viewModel = viewModel) }
     }
 }
